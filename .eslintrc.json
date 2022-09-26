@@ -14,6 +14,7 @@
 		"react",
     "react-hooks"
   ],
+  "parser": "@babel/eslint-parser",
 	"parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -21,7 +22,7 @@
 	"rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "no-console": 1,
+    "no-console": 0,
     "no-unused-vars": 1,
     "no-trailing-spaces": 1,
     "no-multi-spaces": 1,
