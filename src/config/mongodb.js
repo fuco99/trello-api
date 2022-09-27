@@ -1,25 +1,22 @@
 import { MongoClient } from "mongodb";
 import { env } from "*/config/environment";
 const uri = env.MONGODB_URI;
-console.log("hêlo", uri);
+let dbInstance = null;
 
 export const connectDB = async () => {
   const client = new MongoClient(uri, {
     useunifiedtopology: true,
     useNewUrlParser: true,
   });
-  try {
-    await client.connect();
 
-    await listDatabases(client);
-    console.log("Connected successfully to server");
-  } finally {
-    // đảm bảo rằng client sẽ luôn luôn được close sau khi kết thúc
-    await client.close();
-  }
+  // connect the client to server
+  await client.connect();
+  // Assign clientDB to our dbInstance
+  dbInstance = client.db(env.DATABASE_NAME);
 };
 
-const listDatabases = async (client) => {
-  const databases = await client.db().admin().listDatabases();
-  console.log(databases);
+// GET DATABASE INSTANCE
+export const getDB = () => {
+  if (!dbInstance) throw new Error("Must connect to Database first.");
+  return dbInstance;
 };
